@@ -9,11 +9,10 @@ autopublish
 insecure
 coffeescript
 accounts-ui
-accounts-google
-accounts-github
 accounts-password
 jquery
 meteorhacks:npm
+
 
 
 npm-container
