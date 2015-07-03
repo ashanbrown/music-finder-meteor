@@ -11,23 +11,9 @@ if Meteor.isClient
   Meteor.startup ->
     Tracker.autorun ->
       if Meteor.userId()
-        if Session.get 'firstSessionForNewUser'
-          window.mixpanel.alias Meteor.userId()
-          Session.set 'firstSessionForNewUser', false
+        window.mixpanel.alias Meteor.userId()
         window.mixpanel.identify Meteor.userId()
-        window.soundManager.setup
-          defaultOptions:
-            onplay: (object) ->
-              console.log 'play'
-              console.log object
-            onfinish: (object) ->
-              console.log 'finish'
-              console.log object
-
-    Accounts.createUser = _.wrap Accounts.createUser, (original, options) ->
-      original.call this, options, (err) ->
-        unless err
-          Session.set 'firstSessionForNewUser', true
+        window.soundManager.setup()
 
   Template.body.events 'click #logout': () ->
     window.mixpanel.track 'logOut',
